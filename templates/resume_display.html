@@ -1,0 +1,54 @@
+{% include 'nav.html' %}
+
+<div class="container">
+{% if resume %}
+<div   style="width:80%">
+<div class="panel panel-primary">
+   <div class="panel-heading" >个人简历</div>
+      <div class="panel-body">
+          {% if resume.image_path %}
+          <img src="{{ resume.image_path }}"
+          {% else %}
+           <img src="/static/upload/image/default.jpg"
+          {% endif %}
+          width="130" height="180" style="float:right;margin-right:8em;margin-top:`3em">
+         <h1>{{ resume.name }}</h1>
+         <p>学历：{{ resume.education }}</p>
+         <p><span>手机：{{ resume.mobilephone }}</span><span>Email：{{ resume.email }}</span></p>
+         <p><span style="margin-right:2em">期望工作：{{ resume.hope_work }}</span><span style="margin-right:2em">工作类型：{{ resume.hope_type }}</span><span>工作城市：{{ resume.hope_city }}</span></p>
+         <p>期望薪资：{{ resume.hope_salary }}</p>
+         <p>自我评价：{{ resume.self_evaluate }}</p>
+         <p>自我描述：{{ resume.description }}</p>
+         <p>个人亮点：{{ resume.tag }}</p>
+   </div>
+   <ul class="list-group">
+      <li class="list-group-item">
+        <h2>工作经历</h2>
+        {% for item in work_experience %}
+          <div >
+          <p>公司：{{ item.company_name }}</p>
+          <p><span style="margin-right:2em">开始时间：{{ item.start_date.isoformat }}</span><span>结束时间：{{ item.end_date.isoformat }}</span></p>
+          <p>工作职位：{{ item.job }}</p>
+          <p>描述：{{ item.description }}</p>
+          </div>
+        {% endfor %}
+      </li>
+      <li class="list-group-item">
+        <h2>教育经历</h2>
+        {% for item in study_experience %}
+          <div>
+          <p>学校：{{ item.school_name }}</p>
+          <p><span style="margin-right:2em">开始时间：{{ item.start_date.isoformat }}</span><span>结束时间：{{ item.end_date.isoformat }}</span></p>
+          <p><span style="margin-right:2em">学历：{{ item.educational }}</span><span>专业：{{ item.subject }}</span></p>
+          </div>
+        {% endfor %}
+      </li>
+   </ul>
+</div>
+</div>
+
+{% else %}
+<h3>没有搜索到对应简历</h3>
+{% endif %}
+</div>
+{% include 'footer.html' %}

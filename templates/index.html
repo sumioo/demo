@@ -1,0 +1,40 @@
+{% include 'nav.html' %}
+<div class="container theme-showcase" role="main">
+<form class="form-inline" action="/search/job/" method="get" target="_blank">
+      <div class="form-group">
+        <label for="jobSearcher">职位搜索：</label>
+        <input type="text" class="form-control" name="kw"  id="jobSearcher" placeholder="如：产品经理">
+      </div>
+      <button type="submit" class="btn btn-default">搜索</button>
+    </form>
+<br>
+    <form class="form-inline" action="/search/resume" method="get" target="_blank">
+      <div class="form-group">
+        <label for="resumeSearcher">简历搜索：</label>
+        <input type="text" class="form-control" name="kw" id="resumeSearcher" placeholder="期望职位如：高级运维">
+      </div>
+      <button type="submit" class="btn btn-default">搜索</button>
+    </form>
+<br><br>
+<h4>用户概览</h4>
+  <p>默认账号admin，密码admin</p>
+{% for item in user %}
+  <p>{{ forloop.counter }}===>{{ item.username}}-------Email：{{ item.email }}</p>
+{% endfor %}
+<br>
+<h4>简历概览</h4>
+{% for item in resume %}
+  <p>{{ forloop.counter }}===>{{ item.name}}-------期望工作：{{ item.hope_work }}</p>
+{% endfor %}
+<br>
+<h4>公司概览</h4>
+{% for item in company %}
+  <p>{{ forloop.counter }}===>{{ item.name }}-------标签：{{ item.tag }}</p>
+{% endfor %}
+<br>
+<h4>职位概览</h4>
+{% for item in job %}
+  <p>{{ forloop.counter }}===>{{ item.name }}-------标签：{{ item.tag }}</p>
+{% endfor %}
+</div>
+{% include 'footer.html' %}

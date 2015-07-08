@@ -1,0 +1,36 @@
+{% include 'nav.html' %}
+
+<div class="container">
+<div class="panel panel-default" style="padding-left:2em;padding-top:1em">
+<div class="panelbody" >
+<h3>我的投递信息</h3>
+{% for item in apply_job %}
+{% if item.feedback_id %}
+<p>{{ forloop.counter }}-----<a href="/job/{{ item.job_id }}/">{{ item.job_name }}</a>-----<a href="">{{ item.company_name }}</a>-----申请时间：{{ item.create_date|date:"Y-m-d" }}-----<a href="/apply/feedback/{{ item.feedback_id }}/" target="_blank">查看回执</a><sapn>-----接收日期：{{ item.feedback_date|date:"Y-m-d" }}</sapn>
+{% if item.feedback_is_read %}
+<sapn>-----状态：已读</sapn></p>
+{% else %}
+<sapn>-----状态：未读</sapn></p>
+{% endif %}
+
+{% else %}
+<p>{{ forloop.counter }}-----<a href="/job/{{ item.job_id }}/?from=my_apply">{{ item.job_name }}</a>-----<a href="#">{{ item.company_name }}</a>-----<sapn>未有回执</span>-----投递日期：{{ item.job_create_date|date:"Y-m-d" }}
+
+{% endif %}
+{% endfor %}
+</div>
+</div>
+
+<br><br>
+<div class="panel panel-default" style="padding-left:2em;padding-top:1em">
+<div class="panelbody" >
+<h3>我的收藏</h3>
+{% for item in favorite_job %}
+<p>{{ forloop.counter }}-----<a href="/job/{{ item.job_id }}/?from=my_fav">{{ item.job_name }}</a>-----<a href="#">{{ item.company_name }}</a>-----+
+{% endfor %}
+</div>
+</div>
+
+</div>
+<br><br>
+{% include 'footer.html' %}

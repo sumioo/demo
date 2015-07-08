@@ -1,0 +1,116 @@
+{% include 'nav.html' %}
+
+<div class="container theme-showcase" role="main">
+    {% if company %}
+    <div class="" >
+    <h4>{{ company.name }}</span></h4>
+    <p><span style="margin-right:2em">所在城市：{{ company.city }}</span>
+    <span style="margin-right:2em">阶段：{{ company.stage }}</span>
+    <span style="margin-right:2em">人数：{{ company.people_num}}</span></p>
+    <P><span>标签：{{ company.tag }}</span></P>
+    <p><a href="http://{{ company.home_url }}">主页：{{ company.home_url }}</a></p>
+    <p>公司简介：</p>
+    <P style="margin-left:0">{{ company.description|linebreaksbr }}</p>
+    <p><a href="/mycompany/alter/company/" target="_blank">修改公司信息</a></p>
+    </div>
+
+    <br><br>
+
+    {% for item in job %}
+    <div class="panel panel-default" style="padding-left:2em;padding-top:1em" id="job-{{ forloop.counter }}">
+    <div class="panelbody" >
+    <h5>{{ forloop.counter }}.</h5>
+    <h5><span style="margin-right:2em">职位名：{{ item.name }}</span></h5>
+    <p><span style="margin-right:2em">工作地点：{{ item.work_place }}</span>
+    <span style="margin-right:2em">招聘人数：{{ item.num }}</span>
+    <span style="margin-right:2em">薪资：{{ item.scal }}</span>
+    <span>经验要求：{{ item.experience }}</span>
+    <span style="margin-right:2em">学历：{{ item.educational }}</span>
+    <span style="margin-right:2em">工作类型：全职/实习：{{ item.job_type }}</span></p>
+    <p><span style="margin-right:2em">标签：{{ item.tag }}</span></p>
+    <p>职位描述：</p>
+    <P style="margin-left:0">{{ item.description|linebreaksbr }}</p>
+    <p>过期时间：{{ item.end_date|date:"Y-m-d"  }}</p>
+    <p><a href="/mycompany/alter/job/{{ item.id }}/" target="_blank">修改职位信息</a></p>
+    <hr>
+    <h5>职位申请信息</h5>
+    {% for n in item.job_apply_info %}
+    <p>{{ forloop.counter }}-----申请时间：{{ n.create_date|date:"Y-m-d" }}----<a href="/resume/{{ n.resume_id }}" target="_blank">查看简历</a>-----<a href="/job/feedback/?key_id={{ n.id }}&user_id={{ n.user_id }}&job_id={{ n.job_id }} " target="_blank">发送回执</a></p>
+    {% endfor %}
+    </div>
+    <br>
+    </div>
+    {% endfor %}
+
+    <br><br>
+    <a class="btn btn-success" href="javascript:void(0);" onclick="$('#job').show();">创建招聘职位</a>
+    <form method="post" id="job" action="/mycompany/job/" class="form" style="display:none;">
+    {% csrf_token %}
+    <div class="form-group"><label ></label>
+    <input type="hidden" name="key_id" value="">
+    </div>
+    <div class="form-group"><label >职位名字</label>
+    <input type="text" name="name" placeholder="name" class="form-control" >
+    </div>
+    <div class="form-group"><label >工作地点</label>
+    <input type="text" name="work_place" placeholder="work place" class="form-control" >
+    </div>
+    <div class="form-group"><label >招聘人数</label>
+    <input type="text" name="num" placeholder="num" class="form-control" >
+    </div>
+    <div class="form-group"><label >薪资</label>
+    <input type="text" name="scal" placeholder="scal" class="form-control" >
+    </div>
+    <div class="form-group"><label >经验要求</label>
+    <input type="text" name="experience" placeholder="experience" class="form-control" >
+    </div>
+    <div class="form-group"><label >学历</label>
+    <input type="text" name="educational" placeholder="educational" class="form-control" >
+    </div>
+    <div class="form-group"><label >工作类型：全职/实习</label>
+    <input type="text" name="job_type" placeholder="job_type" class="form-control" >
+    </div>
+    <div class="form-group"><label >标签</label>
+    <input type="text" name="tag" placeholder="tag" class="form-control" >
+    </div>
+    <div class="form-group"><label >职位描述</label>
+    <textarea rows="10" name="description" placeholder="description" class="form-control"></textarea>
+    </div>
+    <div class="form-group"><label >过期时间</label>
+    <input type="text" name="end_date" placeholder="format:2015-1-1" class="form-control" >
+    </div>
+    <input class="btn btn-success" type="submit"   value="提交">
+    </form>
+
+
+    {% else %}
+    <h2>尚未创建公司</h2>
+    <a class="btn btn-success" href="javascript:void(0);" onclick="$('#company').show();">创建公司</a>
+    <form method="post" id="company" action="/mycompany/" class="form" style="display:none;">
+    {% csrf_token %}
+    <div class="form-group"><label >公司名字</label>
+    <input type="text" name="name" placeholder="name" class="form-control">
+    </div>
+    <div class="form-group"><label >所在城市</label>
+    <input type="text" name="city" placeholder="city" class="form-control">
+    </div>
+    <div class="form-group"><label >阶段</label>
+    <input type="text" name="stage" placeholder="stage" class="form-control" >
+    </div>
+    <div class="form-group"><label >标签</label>
+    <input type="text" name="tag" placeholder="tag" class="form-control">
+    </div>
+    <div class="form-group"><label >人数</label>
+    <input type="text" name="people_num" placeholder="people_num" class="form-control">
+    </div>
+    <div class="form-group"><label >网址</label>
+    <input type="text" name="home_url" placeholder="home_url" class="form-control">
+    </div>
+    <div class="form-group"><label >简介</label>
+    <textarea rows="10" name="description" placeholder="description" class="form-control"></textarea>
+    </div>
+    <input class="btn btn-success" type="submit"   value="提交">
+    </form>
+    {% endif %}
+</div>
+{% include 'footer.html' %}

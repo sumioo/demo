@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)http://5.sumioo.sinaapp.com/index/index -->
+<html lang="zh-CN"><head profile="http://gmpg.org/xfn/11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>demo</title>
+    <link rel="stylesheet" href="http://apps.bdimg.com/libs/bootstrap/3.3.0/css/bootstrap.min.css" >
+<!--<link href="http://127.0.0.1:85/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">  -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/bin.js"></script>
+    <!--[if IE]>
+    <script src="/static/default/html5.js"></script>
+    <![endif]-->
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+<script>window["_GOOG_TRANS_EXT_VER"] = "1";</script></head><style>#ads_c_tpc, .a_fl, .a_fr, .a_h, .a_mu, .a_pb, .a_pr, .a_pt, .ad_footerbanner, #ad_headerbanner, .ad_headerbanner, [id^="ad_thread"], .archiver_banne, .bm.a_c, .wp.a_f, #sitefocus.focus { display: none !important; }</style>
+<body role="document" style="zoom: 1;">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!--<a class="navbar-brand" href="http://5.sumioo.sinaapp.com/index/index#">拉勾项目</a>-->
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="/">首页</a></li>
+        <li><a href="/myresume/">我的简历</a></li>
+        <li><a href="/myjob/">我的投递和收藏</a></li>
+        <li><a href="/mycompany/">我的公司</a></li>
+        {% if  request.user.is_authenticated %}
+            <li><a href="">用户:{{ request.user.username }}</a></li>
+            <li><a href="/accounts/logout">退出</a></li>
+        {% else %}
+            <li><a href="/accounts/login/">登陆</a></li>
+            <li><a href="/accounts/signup/">注册</a></li>
+        {% endif %}
+
+        </ul>
+        </li>
+        </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+

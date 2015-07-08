@@ -1,0 +1,16 @@
+{% include 'nav.html' %}
+<div class="container">
+<div style="margin:0 auto;width:70%">
+    <h4>发送回执</h4>
+    <form method="post" action="/job/feedback/">
+    {% csrf_token %}
+    <input id="id_key_id" name="key_id" type="hidden" value="{{ request.GET.key_id }}" />
+    <input id="id_uid" name="user_id" type="hidden" value="{{ request.GET.user_id }}" />
+    <input id="id_job_id" name="job_id" type="hidden" value="{{ request.GET.job_id }}" />
+    <textarea class=" form-control" cols="40" id="id_content" name="content" rows="10"></textarea>
+    <br>
+    <input class="btn btn-success" type="submit"   value="提交">
+    </form>
+</div>
+</div>
+{% include 'footer.html' %}

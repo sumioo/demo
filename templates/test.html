@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Demo</title>
+<style>
+
+</style>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.js"></script>
+</head>
+
+<body>
+<form id="fo">
+  <input type="text" id="user_id" value="1"> <span id="user_id_error"></span>
+  <input type="text" id="name" >  <span id="name_error"></span>
+  <input type="text" id="city" >  <span id="city_error"></span>
+  <button id="save">baocun</button>
+</form>
+
+<p id="msga"></p>
+<p id="msgb"></p>
+<p id="msgc"></p>
+<p id="msgd"></p>
+
+
+
+
+
+
+{% extends "footer.html" %}
+{% block css %}<style type="text/css">.error {color:red} </style>{% endblock %}
+{% block script %}
+<script type="text/javascript">
+$(document).ready(function(){
+        function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+        var csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+    beforeSend: function(xhr, settings) {
+
+            xhr.setRequestHeader("X-CSRFToken", csrftoken);
+
+    }
+});
+
+        var post_form=document.getElementById("fo");
+
+        $("#save").click(function(){
+            $.ajax({
+                type:"POST",
+                url:"/testajax/",
+                data:{name:"gggggg"},
+                dataType:"json",
+                success:function(data){for (x in data)
+                                        {document.getElementById(x).innerHTML=data[x];};},
+                error:function(jqXHR){alert("发生错误"+jqXHR.status);}
+            });
+        });
+    }
+);
+</script>
+{% endblock script %}

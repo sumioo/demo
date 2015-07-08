@@ -1,0 +1,206 @@
+{% include "nav.html" %}
+<div class="container theme-showcase" role="main">
+      <!-- Main jumbotron for a primary marketing message or call to action -->
+    <h1>我的简历</h1>
+  <br>
+  <ul id="myTab" class="nav nav-tabs">
+  <li class="active"><a href="#resume" data-toggle="tab">简历填写修改</a></li>
+  <li><a href="#preview" data-toggle="tab">简历预览</a></li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+  <div class="tab-pane fade in active" id="resume">
+  <div id="wrap">
+        <form method="post" action="/myresume/" class="form">
+          {% csrf_token %}
+            <div class="form-group"><label >姓名：</label>
+              <input type="text" name="name" placeholder="Name" value="{{ resume.name }}" class="form-control">
+            </div>
+            <div class="form-group"><label >现居城市：</label>
+              <input type="text" name="city" value="{{ resume.city }}" placeholder="city" class="form-control">
+            </div>
+            <div class="form-group"><label >手机号码：</label>
+              <input type="text" name="mobilephone" value="{{ resume.mobilephone }}" placeholder="mobilephone" class="form-control">
+            </div>
+            <div class="form-group"><label >email：</label>
+              <input type="text" name="email" value="{{ resume.email }}" placeholder="email" class="form-control">
+            </div>
+            <div class="form-group"><label >期望工作：</label>
+              <input type="text" name="hope_work" value="{{ resume.hope_work }}" placeholder="hope_work" class="form-control">
+            </div>
+            <div class="form-group"><label >工作类型：全职/实习</label>
+              <input type="text" name="hope_type" value="{{ resume.hope_type }}" placeholder="hope_type" class="form-control">
+            </div>
+            <div class="form-group"><label >期望城市：</label>
+              <input type="text" name="hope_city" value="{{ resume.hope_city }}" placeholder="hope_city" class="form-control">
+            </div>
+            <div class="form-group"><label >期望薪资：</label>
+              <input type="text" name="hope_salary" value="{{ resume.hope_salary }}" placeholder="hope_salary" class="form-control">
+            </div>
+            <div class="form-group"><label >学历：</label>
+              <input type="text" name="education" value="{{ resume.education }}" placeholder="education" class="form-control">
+            </div>
+            <div class="form-group"><label >个人亮点：</label>
+              <input type="text" name="tag" value="{{ resume.tag }}" placeholder="tag" class="form-control">
+            </div>
+            <div class="form-group"><label >自我描述：</label>
+              <textarea type="text" name="description"  placeholder="description" class="form-control" rows="5">{{ resume.description|linebreaksbr }}</textarea>
+            </div>
+            <div class="form-group"><label >自我评价：</label>
+              <textarea  name="self_evaluate"  placeholder="self_evaluate" class="form-control" rows="5">{{ resume.self_evaluate|linebreaksbr}}</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success" >保存简历</button>
+        </form>
+        <h2>工作经历：</h2>
+        {% for item in work_experience %}
+            <form method="post" action="/myresume/work-experience/" class="form">
+            {% csrf_token %}
+                <input type="hidden" name="key_id" value="{{ item.id }}">
+                <div class="form-group"><label >公司：</label>
+                  <input type="text" name="company_name" value="{{ item.company_name }}" placeholder="company_name" class="form-control">
+                </div>
+                <div class="form-group"><label >开始时间：</label>
+                  <input type="text" name="start_date" value="{{ item.start_date|date:"Y-m-d" }}" placeholder="start_date" class="form-control">
+                </div>
+                <div class="form-group"><label >结束时间：</label>
+                  <input type="text" name="end_date" value="{{ item.end_date|date:"Y-m-d" }}" placeholder="end_date" class="form-control">
+                </div>
+                <div class="form-group"><label >工作岗位：</label>
+                  <input type="text" name="job" value="{{ item.job }}" placeholder="job" class="form-control">
+                </div>
+                <div class="form-group"><label >描述：</label>
+                  <textarea rows="5" name="description"  placeholder="desc" class="form-control">{{ item.description|linebreaksbr }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-success" >保存</button>
+            </form>
+            {% endfor %}
+        <br/>
+        <a class="btn btn-success" href="javascript:void(0);" onclick="$('#work_experience').show();">添加工作经历</a>
+        <form method="post" id="work_experience" action="/myresume/work-experience/" class="form" style="display:none;">
+          {% csrf_token %}
+            <input type="hidden" name="key_id" value="">
+            <div class="form-group"><label >公司：</label>
+              <input type="text" name="company_name" placeholder="company_name" class="form-control">
+            </div>
+            <div class="form-group"><label >开始时间：</label>
+              <input type="text" name="start_date" placeholder="start_date" class="form-control">
+            </div>
+            <div class="form-group"><label >结束时间：</label>
+              <input type="text" name="end_date" placeholder="end_date" class="form-control">
+            </div>
+            <div class="form-group"><label >工作岗位：</label>
+              <input type="text" name="job" placeholder="job" class="form-control">
+            </div>
+            <div class="form-group"><label >描述：</label>
+              <textarea rows="5" name="description" placeholder="desc" class="form-control"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success" >保存</button>
+        </form>
+        <h2>教育经历：</h2>
+        {% for item in study_experience %}
+            <form method="post" action="/myresume/study-experience/" class="form">
+            {% csrf_token %}
+                <input type="hidden" name="key_id" value="{{ item.id }}">
+                <div class="form-group"><label >学校：</label>
+                  <input type="text" name="school_name" value="{{ item.school_name }}" placeholder="school_name" class="form-control">
+                </div>
+                <div class="form-group"><label >开始时间：</label>
+                  <input type="text" name="start_date" value="{{ item.start_date|date:"Y-m-d" }}" placeholder="start_date" class="form-control">
+                </div>
+                <div class="form-group"><label >结束时间：</label>
+                  <input type="text" name="end_date" value=" {{ item.end_date|date:"Y-m-d" }}" placeholder="end_date" class="form-control">
+                </div>
+                <div class="form-group"><label >学历：</label>
+                  <input type="text" name="educational" value="{{ item.educational }}" placeholder="educational" class="form-control">
+                </div>
+                <div class="form-group"><label >专业：</label>
+                  <input type="text" name="subject" value="{{ item.subject }}" placeholder="subject" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success" >保存</button>
+            </form>
+        {% endfor %}
+        <br>
+        <a class="btn btn-success" href="javascript:void(0);" onclick="$('#edu_experience').show();">添加教育经历</a>
+        <form method="post" id="edu_experience"  action="/myresume/study-experience/" class="form" style="display:none;">
+            {% csrf_token %}
+            <input type="hidden" name="key_id" value="">
+            <div class="form-group"><label >学校：</label>
+              <input type="text" name="school_name" placeholder="school_name" class="form-control">
+            </div>
+            <div class="form-group"><label >开始时间：</label>
+              <input type="text" name="start_date" placeholder="start_date" class="form-control">
+            </div>
+            <div class="form-group"><label >结束时间：</label>
+              <input type="text" name="end_date" placeholder="end_date" class="form-control">
+            </div>
+            <div class="form-group"><label >学历：</label>
+              <input type="text" name="educational" placeholder="educational" class="form-control">
+            </div>
+            <div class="form-group"><label >专业：</label>
+              <input type="text" name="subject" placeholder="subject" class="form-control">
+            </div>
+            <button type="submit" class="btn btn-success" >保存</button>
+        </form>
+        <br>
+        <br>
+        <form method="POST" enctype="multipart/form-data" action="/myresume/image/" class="form" >
+          {% csrf_token %}
+          <div class="form-group">
+          {% if resume.image_path %}
+            <p>照片已上传</p>
+          {% endif %}
+          <label >上传简历照片(jpg格式)</label>
+          <input type="file"  name="upimage">
+          </div>
+          <button type="submit" class="btn btn-success">上传</button>
+        </form>
+    </div>  <!-- wrap end -->
+  </div>
+
+<div class="tab-pane fade" id="preview" style="width:80%">
+<div class="panel panel-primary">
+   <div class="panel-heading" >个人简历</div>
+      <div class="panel-body">
+          {% if resume.image_path %}
+          <img src="{{ resume.image_path }}"
+          {% else %}
+           <img src="/static/upload/image/default.jpg"
+          {% endif %}
+          width="130" height="180" style="float:right;margin-right:8em;margin-top:`3em">
+         <h1>{{ resume.name }}</h1>
+         <p>学历：{{ resume.education }}</p>
+         <p><span>手机：{{ resume.mobilephone }}</span><span>Email：{{ resume.email }}</span></p>
+         <p><span style="margin-right:2em">期望工作：{{ resume.hope_work }}</span><span style="margin-right:2em">工作类型：{{ resume.hope_type }}</span><span>工作城市：{{ resume.hope_city }}</span></p>
+         <p>期望薪资：{{ resume.hope_salary }}</p>
+         <p>自我评价：{{ resume.self_evaluate }}</p>
+         <p>自我描述：{{ resume.description }}</p>
+         <p>个人亮点：{{ resume.tag }}</p>
+   </div>
+   <ul class="list-group">
+      <li class="list-group-item">
+        <h2>工作经历</h2>
+        {% for item in work_experience %}
+          <div >
+          <p>公司：{{ item.company_name }}</p>
+          <p><span style="margin-right:2em">开始时间：{{ item.start_date|date:"Y-m-d" }}</span><span>结束时间：{{ item.end_date|date:"Y-m-d" }}</span></p>
+          <p>工作职位：{{ item.job }}</p>
+          <p>描述：{{ item.description }}</p>
+          </div>
+        {% endfor %}
+      </li>
+      <li class="list-group-item">
+        <h2>教育经历</h2>
+        {% for item in study_experience %}
+          <div>
+          <p>学校：{{ item.school_name }}</p>
+          <p><span style="margin-right:2em">开始时间：{{ item.start_date|date:"Y-m-d" }}</span><span>结束时间：{{ item.end_date|date:"Y-m-d" }}</span></p>
+          <p><span style="margin-right:2em">学历：{{ item.educational }}</span><span>专业：{{ item.subject }}</span></p>
+          </div>
+        {% endfor %}
+      </li>
+   </ul>
+</div>
+</div>
+</div>
+
+{% include "footer.html" %}

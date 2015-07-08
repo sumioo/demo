@@ -1,0 +1,24 @@
+{% include 'nav.html' %}
+
+<div style="margin:0 auto;width:70%">
+    <form method="post" action="{{ form_action_path }}" id="repost" enctype="{{ enctype }}">
+    {% csrf_token %}
+    {% load bootstrap %}
+
+    {{ form|bootstrap }}
+
+    <input class="btn btn-success" type="button" onclick="changeAction()"  value="重新提交">
+
+    </form>
+</div>
+
+{% include 'footer.html' %}
+
+<script type="text/javascript">
+    function changeAction()
+    {
+    var f=document.getElementById("repost")
+    f.action=window.location.href
+    f.submit()
+    }
+</script>

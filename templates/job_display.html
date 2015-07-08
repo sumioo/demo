@@ -1,0 +1,41 @@
+{% include 'nav.html' %}
+
+<div class="container">
+<div class="" >
+    <h4>{{ company.name }}</span></h4>
+    <p><span style="margin-right:2em">所在城市：{{ company.city }}</span>
+    <span style="margin-right:2em">阶段：{{ company.stage }}</span>
+    <span style="margin-right:2em">人数：{{ company.people_num}}</span></p>
+    <P><span>标签：{{ company.tag }}</span></P>
+    <p><a href="http://{{ company.home_url }}">主页：{{ company.home_url }}</a></p>
+    <p>公司简介：</p>
+    <P style="margin-left:0">{{ company.description|linebreaksbr }}</p>
+</div>
+
+<div class="panel panel-default" style="padding-left:2em;padding-top:1em" id="job-{{ forloop.counter }}">
+    <div class="panelbody" >
+
+    <h5><span style="margin-right:2em">职位名：{{ job.name }}</span></h5>
+    <p><span style="margin-right:2em">工作地点：{{ job.work_place }}</span>
+    <span style="margin-right:2em">招聘人数：{{ job.num }}</span>
+    <span style="margin-right:2em">薪资：{{ job.scal }}</span>
+    <span>经验要求：{{ job.experience }}</span>
+    <span style="margin-right:2em">学历：{{ job.educational }}</span>
+    <span style="margin-right:2em">工作类型：全职/实习：{{ job.job_type }}</span></p>
+    <p><span style="margin-right:2em">标签：{{ job.tag }}</span></p>
+    <p>职位描述：</p>
+    <P style="margin-left:0">{{ job.description|linebreaksbr }}</p>
+    <p>过期时间：{{ job.end_date|date:"Y-m-d"  }}</p>
+    <p>
+    {% if from_page != "my_apply" %}
+    <a href="/job/apply/{{ job.id }}/" target="_blank" style="margin-right:2em">申请职位</a>
+    {% endif %}
+    {% if from_page != "my_fav" %}
+    <a href="/job/favorite/{{ job.id }}/" target="_blank">收藏职位</a>
+    {% endif %}
+    </p>
+    </div>
+    <br>
+    </div>
+
+{% include 'footer.html' %}

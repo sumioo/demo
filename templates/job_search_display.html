@@ -1,0 +1,39 @@
+{% include 'nav.html' %}
+<div class="container">
+<form class="form-inline" action="/search/job/" method="get" >
+    <div class="form-group">
+        <label for="resumeSearcher">职位搜索：</label>
+        <input type="text" class="form-control" name="kw" id="resumeSearcher" placeholder="如：高级运维" value="{{ keyword }}">
+      </div>
+      <button type="submit" class="btn btn-default">搜索</button>
+    </form>
+<br>
+<p>筛选</p>
+<p><span>城市</span><span><a href="{{ link }}{{ ed }}&place=北京">北京</a></span><span><a href="{{ link }}{{ ed }}&place=上海">上海</a></span><span><a href="{{ link }}{{ ed }}&place=广州">广州</a></span><span><a href="{{ link }}{{ ed }}&place=深圳">深圳</a></span></p>
+<p><span>学历</span><span><a href="{{ link }}{{ place }}&ed=本科">本科</a></span><span><a href="{{ link }}{{ place }}&ed=大专">大专</a></span><span><a href="{{ link }}{{ place }}&ed=硕士">硕士</a></span></p>
+
+<table class="table table-striped">
+   <caption>搜索结果</caption>
+   <thead>
+      <tr>
+         <th>职位名称</th>
+         <th>公司名称</th>
+         <th>工作地点</th>
+         <th>发布日期</th>
+      </tr>
+   </thead>
+   <tbody>
+    {% for item in search_result %}
+      <tr>
+         <td><a href="/job/{{ item.id }}/">{{ item.name }}</a></td>
+         <td><a href="">{{ item.company }}</a></td>
+         <td>{{ item.work_place }}</td>
+         <td>{{ item.create_date|date:"Y-m-d" }}</td>
+      </tr>
+    {% endfor %}
+   </tbody>
+</table>
+
+
+</div>
+{% include "footer.html" %}

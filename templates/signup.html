@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>注册</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+</style>
+<link rel="stylesheet" href="http://127.0.0.1:85/static/bootstrap/css/bootstrap.min.css">
+<link href="http://127.0.0.1:85/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+<link rel="stylesheet" href="http://127.0.0.1:85/static/css/style.css">
+<script type="text/javascript" src="http://127.0.0.1:85/static/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:85/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:85/static/js/bin.js"></script>
+</head>
+
+<body>
+<div style="margin:0 auto;width:300px">
+<h2 style="margin-left:50px;margin-bottom:50px;">注册</h2>
+<form method="POST" action="/accounts/signup/">
+    {% csrf_token %}
+    {% load bootstrap %}
+    {{ form|bootstrap }}
+    <input class="btn btn-success" type="submit" id="submit" value="注册">
+
+</form>
+</div>
+</body>

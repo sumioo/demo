@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>登陆</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+</style>
+<link rel="stylesheet" href="http://127.0.0.1:85/static/bootstrap/css/bootstrap.min.css">
+<link href="http://127.0.0.1:85/static/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+<link rel="stylesheet" href="http://127.0.0.1:85/static/css/style.css">
+<script type="text/javascript" src="http://127.0.0.1:85/static/js/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:85/static/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://127.0.0.1:85/static/js/bin.js"></script>
+</head>
+
+<body>
+<div style="margin:0 auto;width:300px">
+<h2 style="margin-left:50px;margin-bottom:50px;">登陆</h2>
+<form method="POST" action="/accounts/login/" id="login">
+    {% csrf_token %}
+    {% load bootstrap %}
+
+    {{ form|bootstrap }}
+
+    <input class="btn btn-success" type="button" onclick="changeAction()"  value="登陆">
+    {% if login_error %}
+        <p style="color:red">用户名或密码错误</p>
+    {% endif %}
+</form>
+</div>
+
+</body>
+<script type="text/javascript">
+    function changeAction()
+    {
+    var f=document.getElementById("login")
+    f.action=window.location.href
+    f.submit()
+    }
+</script>
+</html>

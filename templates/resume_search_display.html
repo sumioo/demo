@@ -1,0 +1,31 @@
+{% include 'nav.html' %}
+<div class="container">
+<form class="form-inline" action="/search/resume" method="get" >
+    <div class="form-group">
+        <label for="resumeSearcher">简历搜索：</label>
+        <input type="text" class="form-control" name="kw" id="resumeSearcher" placeholder="如：高级运维" value="{{ keyword }}">
+      </div>
+      <button type="submit" class="btn btn-default">搜索</button>
+    </form>
+<br>
+<p>筛选</p>
+<p><span>城市</span><span><a href="{{ link }}{{ ed }}&city=北京">北京</a></span><span><a href="{{ link }}{{ ed }}&city=上海">上海</a></span><span><a href="{{ link }}{{ ed }}&city=广州">广州</a></span><span><a href="{{ link }}{{ ed }}&city=深圳">深圳</a></span></p>
+<p><span>学历</span><span><a href="{{ link }}{{ city }}&ed=本科">本科</a></span><span><a href="{{ link }}{{ city }}&ed=大专">大专</a></span><span><a href="{{ link }}{{ city }}&ed=硕士">硕士</a></span></p>
+<div class="">
+{% for item in search_result %}
+<div class="panel panel-default" style="padding-left:2em;padding-top:1em" >
+    <div class="panelbody" >
+    <p><span style="margin-right:2em">姓名：{{ item.name }}</span> <span style="margin-right:2em">学历：{{ item.education }}</span><span style="margin-right:2em">手机：{{ item.mobilephone }}</span><span>Email：{{ item.email }}</span></p>
+    <p><span style="margin-right:2em">期望工作：{{ item.hope_work }}</span><span style="margin-right:2em">工作类型：{{ item.hope_type }}</span><span style="margin-right:2em">工作城市：{{ item.hope_city }}</span><span>期望薪资：{{ item.hope_salary }}</span></p>
+    <p>自我评价：{{ item.self_evaluate }}</p>
+    <p>个人亮点：{{ item.tag }}</p>
+    <p><a href="/resume/{{ item.id }}" target="_blank">查看简历</a></p>
+    </div>
+</div>
+{% endfor %}
+
+
+
+
+</div>
+{% include "footer.html" %}
